@@ -1,0 +1,90 @@
+Version 0.20.0
+--------------
+ * Added discrete exponential function
+ * Added compare_distribution functions
+ * dist_pdf now have a log argument
+ * Updated documentation
+ * Bug fixes
+
+
+Version 0.17.0
+--------------
+ * Added discrete lognormal, lognormal and poisson distributions.
+ * Generic plot functions added for bootstrap output.
+ * Test suite.
+ * New examples vignette.
+ * Bug fixes
+
+Version 0.16.1
+--------------
+
+ * bootstrap_xmin now implements the procedure described in Clauset
+ * bootstrap_p estimates the p-value
+
+Version 0.16.0
+--------------
+ * Added dist_data_cdf_function
+ * Can now plot the entire data line and add distribution lines starting at xmin
+ * Added vignette
+ * Improved documentation
+ * Deprecated pl_data data class
+ 
+Version 0.15.2
+--------------
+ * Generating discrete random numbers took up too much memory. 
+   Reduced the threshold for switching to the CTN PL distribution.
+
+Version 0.15.1
+--------------
+ * Bug fix in the lines and points function
+
+
+Version 0.15.0
+--------------
+
+ * Adding support for continuous power-laws
+
+Version 0.14.4
+--------------
+  * No visible changes - preparing for future R versions.
+  * Added discrete_xmax parameter to the discrete random number generator. This parameter controls where we change from using  
+    a (true) discrete random number generator to a CTN approximation.
+
+
+Version 0.14.3
+--------------
+  * xmin now set to minimum value of x
+  
+Version 0.14.2 
+--------------
+ *  Plots, lines and points functions now return the data using
+    invisible
+ * Moved to parSapplyLB
+ * Added a bootstrap_moby data set.
+
+Version 0.14.1
+--------------
+ *  Bug fix when calculating the bootstrapping p-value
+
+Version 0.14
+------------
+ * Added explicit garbage collection call to the bootstrap routine to avoid memory issues.
+
+
+Version 0.13
+------------
+ * Created the estimate_pars method - an mle estimate of the parameters.
+
+Version 0.12
+------------
+ * Fixed bug when calculating the KS statistics
+ * Updated docs
+
+Version 0.11
+----------------
+ * Fixed bug in random number generator
+ * Updated docs
+
+Version 0.1
+----------------
+ * Initial release
