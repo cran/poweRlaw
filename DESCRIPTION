@@ -1,22 +1,20 @@
 Package: poweRlaw
 Type: Package
 Title: Fitting heavy tailed distributions: the poweRlaw package
-Version: 0.20.1
-Date: 2013-06-26
-Authors@R: person("Gillespie", "Colin",
-        email="colin.gillespie@newcastle.ac.uk", role = c("aut",
-        "cre"))
-Author: Colin Gillespie
-Maintainer: Colin Gillespie <colin.gillespie@newcastle.ac.uk>
-Description: This package implements both the discrete and continuous
-        maximum likelihood estimators for fitting the power-law
-        distribution to data.  Additionally, a goodness-of-fit based
-        approach is used to estimate the lower cut-off for the scaling
-        region.
+Version: 0.20.2
+Date: 2013-12-19
+Authors@R: person(given="Colin", family="Gillespie", email="csgillespie@gmail.com", role = c("aut",
+           "cre"))
+Maintainer: Colin Gillespie <csgillespie@gmail.com>
+Description: This package implements both the discrete and continuous maximum likelihood estimators for
+           fitting the power-law distribution to data. Additionally, a goodness-of-fit based approach is
+           used to estimate the lower cut-off for the scaling region.
 URL: https://github.com/csgillespie/poweRlaw
 BugReports: https://github.com/csgillespie/poweRlaw/issues
-Depends: stats, R (>= 2.15.0)
-Imports: VGAM, parallel, methods
+Depends: R (>= 3.0.0), methods
+Imports: VGAM, parallel
+Suggests: knitr, R.matlab
+VignetteBuilder: knitr
 License: GPL-2 | GPL-3
 Collate: 'aaa_all_classes.R' 'all_classes_ctn.R'
         'all_classes_discrete.R' 'AllGenerics.R' 'bootstrap_p.R'
@@ -28,7 +26,8 @@ Collate: 'aaa_all_classes.R' 'all_classes_ctn.R'
         'mle-methods.R' 'plcon.R' 'pldis.R' 'plot-methods.R'
         'points-methods.R' 'poweRlaw-package.R' 'checks.R'
         'compare_distributions.R'
-Packaged: 2013-06-25 15:58:33 UTC; ncsg3
+Packaged: 2013-12-19 17:13:35 UTC; ncsg3
+Author: Colin Gillespie [aut, cre]
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-06-25 18:31:51
+Date/Publication: 2013-12-19 19:46:34
