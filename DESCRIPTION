@@ -1,8 +1,8 @@
 Package: poweRlaw
 Type: Package
 Title: Fitting heavy tailed distributions: the poweRlaw package
-Version: 0.20.3
-Date: 2014-05-15
+Version: 0.20.5
+Date: 2014-05-29
 Authors@R: person(given="Colin", family="Gillespie",
     email="csgillespie@gmail.com", role = c("aut", "cre"))
 Maintainer: Colin Gillespie <csgillespie@gmail.com>
@@ -25,8 +25,8 @@ Collate: 'aaa_all_classes.R' 'AllGenerics.R' 'bootstrap.R'
         'dist_data_cdf_methods.R' 'estimate_pars.R' 'estimate_xmin.R'
         'lines_methods.R' 'plcon.R' 'pldis.R' 'plot_methods.R'
         'points_methods.R' 'poweRlaw-package.R' 'show_methods.R'
-Packaged: 2014-05-27 15:57:01 UTC; ncsg3
+Packaged: 2014-06-11 12:51:28 UTC; ncsg3
 Author: Colin Gillespie [aut, cre]
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2014-05-27 20:06:54
+Date/Publication: 2014-06-12 10:08:58

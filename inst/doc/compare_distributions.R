@@ -1,13 +1,14 @@
-## ----echo=FALSE---------------------------------
+## ----echo=FALSE,message=FALSE-------------------
 library(knitr)
 library(poweRlaw)
 options(replace.assign=FALSE,width=50)
 
-opts_chunk$set(fig.path='knitr_figure/graphics-', 
-               cache.path='knitr_cache/graphics-', 
+opts_chunk$set(fig.path='knitr_figure_compare/graphics-', 
+               cache.path='knitr_cache_compare/', 
                fig.align='center', 
                dev='pdf', fig.width=5, fig.height=5, 
-               fig.show='hold', cache=FALSE, par=TRUE)
+               fig.show='hold', cache=FALSE, par=TRUE,
+               out.width='0.4\\textwidth')
 knit_hooks$set(crop=hook_pdfcrop)
 
 knit_hooks$set(par=function(before, options, envir){
@@ -16,8 +17,6 @@ knit_hooks$set(par=function(before, options, envir){
         mgp=c(2,.7,0),tcl=-.01, las=1)
   }}, crop=hook_pdfcrop)
 
-#options(width=60)
-#knit_theme$set(knit_theme$get()[7])
 set.seed(1)
 palette(c(rgb(170,93,152, maxColorValue=255),
           rgb(103,143,57, maxColorValue=255),
@@ -90,7 +89,4 @@ comp$test_statistic
 ## ----clean-up, include=FALSE--------------------
 # R compiles all vignettes in the same session, which can be bad
 rm(list = ls(all = TRUE))
-
-## -----------------------------------------------
-print(sessionInfo(), locale = FALSE)
 

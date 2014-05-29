@@ -1,3 +1,12 @@
+Version 0.20.5
+--------------
+ * Further changes to the tolarance in the test suite comparison (solaris-sparc failed to build)
+
+Version 0.20.4
+--------------
+ * Added tolarance to test suite comparison (solaris-sparc failed to build)
+ * Removed tufte vignette styles
+
 Version 0.20.3
 --------------
  * Test suite now included in the package
