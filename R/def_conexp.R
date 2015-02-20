@@ -89,16 +89,10 @@ setMethod("dist_pdf",
 #' @aliases dist_cdf,conexp-method
 setMethod("dist_cdf",
           signature = signature(m="conexp"),
-          definition = function(m, 
-                                q=NULL, 
-                                lower_tail=TRUE,
-                                all_values=FALSE) {
+          definition = function(m, q=NULL, lower_tail=TRUE) {
             pars = m$pars; xmin = m$xmin
             if(is.null(pars)) stop("Model parameters not set.")  
-            if(all_values) {
-              xmax = max(m$dat)
-              q = xmin:xmax
-            } else if(is.null(q)) {
+            if(is.null(q)) {
               q = m$dat
               n = m$internal[["n"]]; N = length(q)
               q = q[(N-n+1):N]
@@ -115,6 +109,21 @@ setMethod("dist_cdf",
             }
           }
 )
+
+#' @rdname dist_cdf-methods
+#' @aliases dist_all_cdf,conexo-method
+setMethod("dist_all_cdf",
+          signature = signature(m="conexp"),
+          definition = function(m, lower_tail=TRUE, xmax=1e5) {
+            xmin = m$getXmin()
+            xmax = min(max(m$dat), xmax)
+            dist_cdf(m, q=xmin:xmax, lower_tail=lower_tail)
+          }
+)
+
+
+
+
 
 #############################################################
 #ll method
@@ -137,13 +146,34 @@ setMethod("dist_ll",
 ########################################################
 conexp_tail_ll = function(x, rate, xmin) {
   n = length(x)
-  joint_prob = colSums(sapply(rate, function(i) dexp(x, i, log=TRUE)))
+  joint_prob = colSums(
+                  matrix(## Needed for edge cases
+                    sapply(rate, function(i) dexp(x, i, log=TRUE)), nrow=length(x)))
   prob_over = sapply(rate, 
                      function(i) 
                        pexp(xmin, i, 
                             lower.tail=FALSE, log.p=TRUE))
   return(joint_prob - n*prob_over)
 }
+
+
+########################################################
+#Rand number generator
+########################################################
+#' @rdname dist_rand-methods
+#' @aliases dist_rand,conexp-method
+setMethod("dist_rand",
+          signature = signature(m="conexp"),
+          definition = function(m, n="numeric") {
+            ## Rearrange the usual formula for generating
+            ## exp random numbers: -log(u)/lambda > xmin
+            u = runif(n, 0, exp(-m$pars*m$xmin))
+            -log(u)/m$pars
+          }
+)
+            
+            
+
 
 #############################################################
 #MLE method

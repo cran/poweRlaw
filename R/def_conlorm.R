@@ -90,16 +90,10 @@ setMethod("dist_pdf",
 #' @aliases dist_cdf,conlnorm-method
 setMethod("dist_cdf",
           signature = signature(m="conlnorm"),
-          definition = function(m, 
-                                q=NULL, 
-                                lower_tail=TRUE,
-                                all_values=FALSE) {
+          definition = function(m, q=NULL, lower_tail=TRUE) {
             pars = m$pars; xmin = m$xmin
             if(is.null(pars)) stop("Model parameters not set.")  
-            if(all_values) {
-              xmax = max(m$dat)
-              q = xmin:xmax
-            } else if(is.null(q)) {
+            if(is.null(q)) {
               q = m$dat
               n = m$internal[["n"]]; N = length(q)
               q = q[(N-n+1):N]
@@ -116,6 +110,18 @@ setMethod("dist_cdf",
             }
           }
 )
+
+#' @rdname dist_cdf-methods
+#' @aliases dist_all_cdf,conlnorm-method
+setMethod("dist_all_cdf",
+          signature = signature(m="conlnorm"),
+          definition = function(m, lower_tail=TRUE, xmax=1e5) {
+            xmin = m$getXmin()
+            xmax = min(max(m$dat), xmax)
+            dist_cdf(m, q=xmin:xmax, lower_tail=lower_tail)
+          }
+)
+
 
 #############################################################
 #ll method
@@ -153,7 +159,32 @@ conlnorm_tail_ll = function(x, pars, xmin) {
 ########################################################
 #Rand number generator
 ########################################################
-
+#' @rdname dist_rand-methods
+#' @aliases dist_rand,conlnorm-method
+setMethod("dist_rand",
+          signature = signature(m="conlnorm"),
+          definition = function(m, n="numeric") {
+            xmin = m$getXmin(); pars = m$getPars()
+            rns = numeric(n)
+            i = 0; N = 0
+            ## n-0.5 to avoid floating point sillyness.
+            while (i < (n-0.5)) {
+              ## Since we reject RNs less than xmin we should simulate N > n rns
+              ## If we simulate N Rns (below), we will keep n-i (or reject N-(n-i))
+              N = ceiling((n-i)/plnorm(xmin, pars[1L], pars[2L], lower.tail=FALSE))
+              
+              ## Simple rejection sampler
+              x = rlnorm(N, pars[1L], pars[2L])
+              x = x[x > xmin]
+              if(length(x)) {
+                x = x[1:min(length(x), n-i)]
+                rns[(i+1L):(i+length(x))] = x
+                i = i + length(x)
+              }
+            }
+            rns
+          }
+)
 
 #############################################################
 #MLE method

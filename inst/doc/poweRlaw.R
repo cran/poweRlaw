@@ -27,7 +27,7 @@ palette(c(rgb(170,93,152, maxColorValue=255),
           rgb(115,113,206, maxColorValue=255)))
 
 
-## ----eval=FALSE----------------------------------------------------------
+## ----installation, eval=FALSE--------------------------------------------
 #  install.packages("poweRlaw")
 
 ## ----eval=FALSE----------------------------------------------------------
@@ -72,10 +72,10 @@ bs = bootstrap_moby
 data(bootstrap_p_moby)
 bs_p = bootstrap_p_moby
 
-## ------------------------------------------------------------------------
+## ----example_word--------------------------------------------------------
 data("moby")
 
-## ------------------------------------------------------------------------
+## ----fitting-------------------------------------------------------------
 m_m = displ$new(moby)
 
 ## ----tidy=FALSE----------------------------------------------------------
@@ -89,7 +89,7 @@ m_m$setPars(2)
 ## ------------------------------------------------------------------------
 (est = estimate_pars(m_m))
 
-## ----m_m, echo=FALSE, results='hide'-------------------------------------
+## ----m_m, echo=1---------------------------------------------------------
 (est = estimate_xmin(m_m))
 m_m$setXmin(est)
 
@@ -111,10 +111,6 @@ plot(jitter(bs$bootstraps[,2], factor=1.2), bs$bootstraps[,3],
      pch=21, bg=1, panel.first=grid())
 
 
-## ----m_m, echo=1, eval=TRUE----------------------------------------------
-(est = estimate_xmin(m_m))
-m_m$setXmin(est)
-
 ## ----m_m, echo=2, eval=FALSE, results='hide'-----------------------------
 #  (est = estimate_xmin(m_m))
 #  m_m$setXmin(est)
@@ -129,7 +125,7 @@ lines(m_m, col=2)
 dd = plot(m_m)
 head(dd, 3)
 
-## ----eval=FALSE----------------------------------------------------------
+## ----uncertainty, eval=FALSE---------------------------------------------
 #  bs = bootstrap(m_m, no_of_sims=1000, threads=1)
 
 ## ------------------------------------------------------------------------
@@ -142,7 +138,7 @@ hist(bs$bootstraps[,3], breaks="fd")
 ## ----fig.keep='none'-----------------------------------------------------
 plot(jitter(bs$bootstraps[,2], factor=1.2), bs$bootstraps[,3])
 
-## ----echo=FALSE, fig.width=8, fig.height=4, out.width="\\textwidth"------
+## ----do_we_have_a_power,echo=FALSE, fig.width=8, fig.height=4, out.width="\\textwidth"----
 par(mfrow=c(1, 3))
 hist(bs_p$bootstraps[,2], xlab=expression(x[min]), ylim=c(0, 1600), 
      xlim=c(0, 45), main=NULL, breaks="fd")
@@ -162,7 +158,7 @@ plot(jitter(bs_p$bootstraps[,2], factor=1.2), bs_p$bootstraps[,3],
 #  ## Use the mle to estimate the parameters
 #  bs_p = bootstrap_p(m_m, no_of_sims=1000, threads=2)
 
-## ------------------------------------------------------------------------
+## ----distribution_objects------------------------------------------------
 m_m = displ$new(moby)
 
 ## ----echo=FALSE----------------------------------------------------------
@@ -173,7 +169,7 @@ if(!file.exists("blackouts.txt"))
   download.file("http://goo.gl/BsqnP", destfile="blackouts.txt")
 blackouts = read.table("blackouts.txt")
 
-## ----eval=FALSE----------------------------------------------------------
+## ----loading_data,eval=FALSE---------------------------------------------
 #  blackouts = read.table("blackouts.txt")
 
 ## ------------------------------------------------------------------------
@@ -189,21 +185,23 @@ lines(m_bl, col=2)
 if(!file.exists("plfit.R"))
   download.file("http://tuvalu.santafe.edu/~aaronc/powerlaws/plfit.r", destfile="plfit.R")
 source("plfit.R")
-
-if(!file.exists("plpva.r"))
-  download.file("http://tuvalu.santafe.edu/~aaronc/powerlaws/plpva.r", destfile="plpva.r")
-source("plpva.r")
+if(file.exists("plfit_res.rds")) {
+  plfit_res = readRDS("plfit_res.rds")
+} else {
+  plfit_res = plfit(moby)  
+  saveRDS(plfit_res, file="plfit_res.rds")
+}
 
 ## ----eval=FALSE----------------------------------------------------------
 #  source("http://tuvalu.santafe.edu/~aaronc/powerlaws/plfit.r")
 
-## ------------------------------------------------------------------------
-plfit(moby)
+## ----eval=FALSE----------------------------------------------------------
+#  plfit_res = plfit(moby)
 
 ## ----results='hide', eval=FALSE------------------------------------------
 #  estimate_xmin(m_m, pars=seq(1.5, 2.5, 0.01))
 
-## ------------------------------------------------------------------------
+## ----the_ctn_case--------------------------------------------------------
 r = rplcon(1000, 10, 2.5)
 
 ## ------------------------------------------------------------------------

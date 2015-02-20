@@ -101,17 +101,11 @@ setMethod("dist_pdf",
 #' @aliases dist_cdf,dislnorm-method
 setMethod("dist_cdf",
           signature = signature(m="dislnorm"),
-          definition = function(m, 
-                                q=NULL, 
-                                lower_tail=TRUE,
-                                all_values=FALSE) {
+          definition = function(m, q=NULL, lower_tail=TRUE) {
             xmin = m$getXmin(); pars = m$getPars()
             if(is.null(pars)) stop("Model parameters not set.")  
             
-            if(all_values) {
-              xmax = max(m$dat)
-              q = xmin:xmax
-            } else if(is.null(q)) {
+            if(is.null(q)) {
               q = m$dat
               q = q[q >= xmin]
             } 
@@ -127,6 +121,18 @@ setMethod("dist_cdf",
               log_C = plnorm(xmin+0.5, pars[1], pars[2], lower.tail=FALSE, log.p=T) 
               exp(log_p-log_C)
             }
+          }
+)
+
+#' @rdname dist_cdf-methods
+#' @aliases dist_all_cdf,dislnorm-method
+setMethod("dist_all_cdf",
+          signature = signature(m="dislnorm"),
+          definition = function(m, lower_tail=TRUE, xmax=1e5) {
+            xmin = m$getXmin()
+            xmax = max(m$dat[m$dat <= xmax])
+            dist_cdf(m, q=xmin:xmax, lower_tail=lower_tail)
+
           }
 )
 
@@ -174,19 +180,19 @@ setMethod("dist_rand",
             xmin = m$getXmin(); pars = m$getPars()
             lower = xmin - 0.5
             rns = numeric(n)
-            i = 1; N = 0
+            i = 0; N = 0
             ## n-0.5 to avoid floating point sillyness.
-            while (i <= (n-0.5)) {
+            while (i < (n-0.5)) {
               ## Since we reject RNs less than lower=xmin - 0.5 we should simulate >> n rns
               ## If we simulate N Rns (below), we will keep n-i (or reject N-(n-i))
               N = ceiling((n-i)/plnorm(lower, pars[1L], pars[2L], lower.tail=FALSE))
               
-              ## Simulate, then select, t
+              ## Simple rejection sampler
               x = rlnorm(N, pars[1L], pars[2L])
               x = x[x >= lower]
               if(length(x)) {
-                x = x[1:min(length(x), n-i+1)]
-                rns[i:(i+length(x)-1L)] = x
+                x = x[1:min(length(x), n-i)]
+                rns[(i+1L):(i+length(x))] = x
                 i = i + length(x)
               }
             }
