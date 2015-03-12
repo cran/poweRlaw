@@ -1,13 +1,8 @@
 %\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{3. Comparing distributions with the poweRlaw package}
-
 \documentclass[11pt,BCOR2mm,DIV14]{scrartcl}
-
-%For fancy tables
-\usepackage{booktabs}
-% References
-\usepackage[round]{natbib}
-%For symbols in T1 encoding.
+\usepackage{booktabs}%For fancy tables
+\usepackage[round]{natbib} % References
 \usepackage{textcomp}
 \usepackage{amsmath,amsfonts}
 \usepackage{xcomment,scrpage2}
@@ -34,7 +29,6 @@
 \ofoot[\pagemark]{\pagemark}
 \newcommand{\cc}{\texttt}
 \newcommand{\xmin}{x_{\min}}
-
 
 <<echo=FALSE,message=FALSE>>=
 library(knitr)
@@ -63,7 +57,6 @@ palette(c(rgb(170,93,152, maxColorValue=255),
           rgb(205,71,103, maxColorValue=255),
           rgb(203,77,202, maxColorValue=255),
           rgb(115,113,206, maxColorValue=255)))
-
 @
 % 
 \begin{document}
@@ -80,7 +73,6 @@ palette(c(rgb(170,93,152, maxColorValue=255),
 
 \section{Comparing distributions}
 
-
 This short vignette aims to provide some guidance when comparing distributions
 using Vuong's test statistic. The hypothesis being tested is
 \[
@@ -96,11 +88,11 @@ function\footnote{The \cc{compare\_distributions} function also returns a one
   first model is better than the second, i.e. a \textbf{one} sided test.} and
 examine the \cc{p\_two\_sided} value.
 
-
 \section{Example: Simulated data}
 
 First let's generate some data from a power-law distribution
 <<>>=
+library("poweRlaw")
 set.seed(1)
 x = rpldis(10000, xmin=2, alpha=2.1)
 @
@@ -109,7 +101,7 @@ x = rpldis(10000, xmin=2, alpha=2.1)
 m1 = displ$new(x)
 m1$setPars(estimate_pars(m1))
 @
-\noindent The estimated values of $\xmin$ and $\alpha$ are \Sexpr{m1$getXmin()} and \Sexpr{m1$getPars()}, respectively. As an alternative distribution, we will fit a discrete log-normal distribution\footnote{When comparing distributions, each model must have the same $\xmin$ value. In this example, both models have $\xmin=\Sexpr{m1$getXmin()}$.}
+\noindent The estimated values of $\xmin$ and $\alpha$ are \Sexpr{m1$getXmin()} and \Sexpr{signif(m1$getPars(), 3)}, respectively. As an alternative distribution, we will fit a discrete log-normal distribution\footnote{When comparing distributions, each model must have the same $\xmin$ value. In this example, both models have $\xmin=\Sexpr{m1$getXmin()}$.}
 <<>>=
 m2 = dislnorm$new(x)
 m2$setPars(estimate_pars(m2))
@@ -135,8 +127,6 @@ comp = compare_distributions(m1, m2)
 comp$p_two_sided
 @
 \noindent means we can reject $H_0$ since $p=\Sexpr{signif(comp$p_two_sided, 4)}$ and conclude that one model is closer to the true distribution.
-
-
 
 \section{Example: Moby Dick data set}
 

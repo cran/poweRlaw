@@ -26,8 +26,8 @@ palette(c(rgb(170,93,152, maxColorValue=255),
           rgb(203,77,202, maxColorValue=255),
           rgb(115,113,206, maxColorValue=255)))
 
-
 ## -----------------------------------------------
+library("poweRlaw")
 set.seed(1)
 x = rpldis(10000, xmin=2, alpha=2.1)
 

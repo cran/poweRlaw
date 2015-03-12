@@ -110,7 +110,6 @@ plot(jitter(bs$bootstraps[,2], factor=1.2), bs$bootstraps[,3],
      xlim=c(0, 30), ylim=c(1.8, 2.1), cex=0.35, 
      pch=21, bg=1, panel.first=grid())
 
-
 ## ----m_m, echo=2, eval=FALSE, results='hide'-----------------------------
 #  (est = estimate_xmin(m_m))
 #  m_m$setXmin(est)
@@ -249,6 +248,4 @@ rm(list = ls(all = TRUE))
 #       breaks="fd")
 #  grid()
 #  sink=dev.off()
-#  
-#  
 

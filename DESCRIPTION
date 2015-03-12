@@ -1,8 +1,8 @@
 Package: poweRlaw
 Type: Package
 Title: Analysis of Heavy Tailed Distributions
-Version: 0.30.0
-Date: 2015-02-20
+Version: 0.30.1
+Date: 2015-03-12
 Authors@R: person(given="Colin", family="Gillespie",
     email="csgillespie@gmail.com", role = c("aut", "cre"))
 Maintainer: Colin Gillespie <csgillespie@gmail.com>
@@ -25,8 +25,8 @@ Collate: 'aaa_all_classes.R' 'AllGenerics.R' 'bootstrap.R'
         'dist_data_cdf_methods.R' 'estimate_pars.R' 'estimate_xmin.R'
         'lines_methods.R' 'plcon.R' 'pldis.R' 'plot_methods.R'
         'points_methods.R' 'poweRlaw-package.R' 'show_methods.R'
-Packaged: 2015-02-20 14:07:58 UTC; ncsg3
+Packaged: 2015-03-13 08:45:47 UTC; ncsg3
 Author: Colin Gillespie [aut, cre]
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2015-02-20 23:44:04
+Date/Publication: 2015-03-13 10:21:38

@@ -26,7 +26,6 @@ palette(c(rgb(170,93,152, maxColorValue=255),
           rgb(203,77,202, maxColorValue=255),
           rgb(115,113,206, maxColorValue=255)))
 
-
 ## ----echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE----
 if(!file.exists("blackouts.txt"))
   download.file("http://goo.gl/BsqnP", destfile="blackouts.txt")
@@ -154,7 +153,7 @@ for(i in seq_along(xmins)){
 }
 
 ## ----echo=FALSE, cache=TRUE----------------------------------------------
-plot(xmins, est_scan, type="l", 
+plot(xmins, est_scan, type="s", 
      panel.first=grid(), 
      xlab=expression(x[min]), ylab=expression(alpha), 
      ylim=c(1.6, 2.8), col=1)
@@ -223,7 +222,6 @@ plot(native_american$Date, native_american$Cas,
      ylim=c(1, 2000), 
      cex=0.5, panel.first=grid(col="grey70"), 
      xlab="Date", ylab="#Casualties")
-
 points(us_american$Date, us_american$Cas, 
        pch=24, bg=2, cex=0.5)
 
