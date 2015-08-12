@@ -26,14 +26,12 @@ palette(c(rgb(170,93,152, maxColorValue=255),
           rgb(203,77,202, maxColorValue=255),
           rgb(115,113,206, maxColorValue=255)))
 
-
 ## ----installation, eval=FALSE--------------------------------------------
 #  install.packages("poweRlaw")
 
 ## ----eval=FALSE----------------------------------------------------------
 #  install.packages("devtools")
-#  library("devtools")
-#  install_github("poweRlaw", "csgillespie", subdir="pkg")
+#  devtools::install_github("csgillespie/poweRlaw", subdir="pkg")
 
 ## ------------------------------------------------------------------------
 library("poweRlaw")
@@ -56,12 +54,6 @@ library("poweRlaw")
 ## ----eval=FALSE----------------------------------------------------------
 #  demo(package="poweRlaw")
 #  data(package="poweRlaw")
-
-## ------------------------------------------------------------------------
-data("moby")
-
-## ----results='hide'------------------------------------------------------
-moby
 
 ## ----results='hide'------------------------------------------------------
 citation("poweRlaw")
@@ -199,6 +191,10 @@ if(file.exists("plfit_res.rds")) {
 
 ## ----results='hide', eval=FALSE------------------------------------------
 #  estimate_xmin(m_m, pars=seq(1.5, 2.5, 0.01))
+
+## ----cache=TRUE----------------------------------------------------------
+x = rpldis(1000, 1, 2)
+plfit(x)
 
 ## ----the_ctn_case--------------------------------------------------------
 r = rplcon(1000, 10, 2.5)

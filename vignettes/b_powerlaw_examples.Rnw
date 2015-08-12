@@ -28,6 +28,7 @@ urlcolor={blue!80!black}
 \ofoot[\pagemark]{\pagemark}
 \newcommand{\cc}{\texttt}
 \newcommand{\xmin}{x_{\min}}
+\newcommand{\ntail}{n_{\text{tail}}}
 
 <<echo=FALSE, message=FALSE>>=
 library(knitr)
@@ -69,24 +70,27 @@ if(!file.exists("blackouts.txt"))
   download.file("http://goo.gl/BsqnP", destfile="blackouts.txt")
 @
 
-\section{Discrete data: Moby Dick}
+\section{Discrete data: The Moby Dick data set}
 
-The Moby Dick dataset contains the frequency of unique words in the novel Moby Dick by Herman Melville. This data set can be downloaded from
+The Moby Dick data set contains the frequency of unique words in the novel Moby Dick by Herman Melville. This data set can be downloaded from
 \begin{center}
 \url{http://tuvalu.santafe.edu/~aaronc/powerlaws/data.htm}
 \end{center}
 \noindent or loaded directly
 <<dis_data>>=
 library("poweRlaw")
-data("moby")
+data("moby", package="poweRlaw")
 @
 \noindent To fit a discrete power law to this data\footnote{The object \texttt{moby} is a simple R vector.}, we use the \texttt{displ} constructor
 <<cache=TRUE>>=
 m_pl = displ$new(moby)
 @
-\noindent The resulting object, \cc{m\_pl}, is a \cc{displ}\footnote{\cc{displ}: discrete power law.} object. It also inherits the \cc{discrete\_distribution} class. After creating the \cc{displ} object, a typical first step would be to infer model parameters.\footnote{When the \cc{displ} object is first created, the default parameter values are \cc{NULL} and $\xmin$ is set to the minimum $x$-value.} We can estimate the lower threshold, via
+\noindent The resulting object, \cc{m\_pl}, is a \cc{displ}\footnote{\cc{displ}: discrete power law.} object. It also inherits the \cc{discrete\_distribution} class. After creating the \cc{displ} object, a typical first step would be to infer model parameters.\footnote{When the \cc{displ} object is first created, the default parameter values are \cc{NULL} and $\xmin$ is set to the minimum $x$-value.} We estimate the lower threshold via
 <<cache=TRUE>>=
 est = estimate_xmin(m_pl)
+@
+\noindent and update the power law object
+<<cache=TRUE>>=
 m_pl$setXmin(est)
 @
 \noindent For a given value $\xmin$, the scaling parameter is estimated by numerically optimising the log-likelihood. The optimiser is \textit{initialised} using the analytical MLE
@@ -176,11 +180,13 @@ bootstrap(m_pl, xmins = seq(2, 20, 2))
 \]
 A similar argument exists for the parameters.\footnote{For single parameter models, \cc{pars} should be a vector. For the log-normal distribution, \cc{pars} should be a matrix of values.}
 
-The bootstrap function, returns \cc{bs\_xmin} object that has three components:
+The bootstrap function, returns \cc{bs\_xmin} object that has a number of components:
 \begin{enumerate}
 \item The goodness of fit statistic obtained from the Kolmogorov-Smirnoff test. This value should correspond to the value obtained from the \mbox{\cc{estimate\_xmin}} function.
 \item A data frame containing the results for the bootstrap procedure. 
 \item The average simulation time, in seconds, for a single bootstrap.
+\item The random number seed.
+\item The package version.
 \end{enumerate}
 The boostrap results can be explored in a variety way. First we can estimate the standard deviation of the parameter uncertainty, i.e.
 
@@ -189,7 +195,7 @@ The boostrap results can be explored in a variety way. First we can estimate the
 <<echo=FALSE, fig.width=8, fig.height=8, out.width='0.7\\textwidth'>>=
 plot(bs)
 @
-\caption{Results from the standard bootstrap procedure (for the power law model) using the Moby Dick data set: \mbox{\texttt{bootstrap(m\_pl)}}. The top row shows the mean estimate of parameters $\xmin$ and $\alpha$. The bottom row shows the estimate of standard deviation for each parameter. The dashed-lines give approximate 95\% confidence intervals. After 5,000 iterations, the standard deviation of $\xmin$ and $\alpha$ is estimated to be 2.1 and 0.03 respectively.}\label{F1b}
+\caption{Results from the standard bootstrap procedure (for the power law model) using the Moby Dick data set: \mbox{\texttt{bootstrap(m\_pl)}}. The top row shows the mean estimate of parameters $\xmin$, $\alpha$ and $\ntail$. The bottom row shows the estimate of standard deviation for each parameter. The dashed-lines give approximate 95\% confidence intervals. After 5,000 iterations, the standard deviation of $\xmin$ and $\alpha$ is estimated to be 2.1 and 0.03 respectively.}\label{F1b}
 \end{figure}
 <<>>=
 sd(bs$bootstraps[,2])
@@ -342,6 +348,59 @@ lower threshold increases, so does the point estimate of $\alpha$.
 
 \clearpage
 
+
+\section{Discrete data: Swiss prot}
+
+
+UniProtKB/Swiss-Prot is a manually annotated, non-redundant protein sequence database. It combines information extracted from scientific literature and biocurator-evaluated computational analysis. In a recent paper, \citet{Bell2012} used the power law distribution to investigate the evolution of the database over time. 
+
+A single version of the data set is available with the package and can be accessed via
+<<>>=
+data("swiss_prot", package="poweRlaw")
+head(swiss_prot, 3)
+@
+
+\noindent This dataset contains all the words extracted from the Swiss-Prot version 9 data (with the resulting frequency for each word). Other datasets for other database versions can be obtained by contacting Michael Bell
+\begin{center}
+\url{http://homepages.cs.ncl.ac.uk/m.j.bell1/annotationQualityPaper.php}
+\end{center}
+The first column gives the word/symbol, while the second column gives the number of times that particular word occurs.
+
+We can fit a discrete power law in the usual way
+
+<<>>=
+m_sp = displ$new(swiss_prot$Value)
+est_sp = estimate_xmin(m_sp)
+m_sp$setXmin(est_sp)
+@
+
+\begin{figure}[t]
+\centering
+<<sp_plot, echo=FALSE, cache=TRUE, fig.width=4, fig.height=4>>=
+plot(m_sp, pch=21, bg=2, panel.first=grid(col="grey80"), 
+     xlab="Word Occurance", ylab="CDF")
+lines(m_sp, col=3, lwd=3)
+@
+\caption{Log-log plot for the Swiss-Prot data sets.}\label{sp1}
+\end{figure}
+
+\noindent which gives estimates of $\xmin = \Sexpr{est_sp$xmin}$ and $\alpha = \Sexpr{signif(est_sp$pars, 3)}$. 
+
+We can spice up the base graphics plot by changing the plotting defaults. First, we change the graphical parameters
+<<>>=
+par(mar=c(3, 3, 2, 1), mgp=c(2, 0.4, 0), tck=-.01, 
+    cex.axis=0.9, las=1)
+@
+
+\noindent Then plot data and model, but adding in a background grid, and changing the symbol
+
+<<sp_plot, fig.keep="none", eval=FALSE>>=
+@
+
+\noindent to get figure \ref{sp1}.
+
+\clearpage
+
 \section{Continuous data: electrical blackouts}
 
 In this example, we will investigate the numbers of customers affected in
@@ -390,7 +449,7 @@ lines(m_bl, col=2, lwd=3)
 lines(m_bl_ln, col=3, lwd=3)
 @
 
-\caption{CDF plot of the blackout dataset with line of best fit. Since the minimum value of $x$ is large, we fit a continuous power law as this is more it efficient. The power law fit is the green line, the discrete log-normal is the red line.}\label{F2a}
+\caption{CDF plot of the blackout data set with line of best fit. Since the minimum value of $x$ is large, we fit a continuous power law as this is more it efficient. The power law fit is the green line, the discrete log-normal is the red line.}\label{F2a}
 \end{figure}
 <<m_bl_ln, eval=FALSE>>=
 @
@@ -479,7 +538,7 @@ The lines of best fit are also given.}\label{F3b}
 \noindent The result is given in figure \ref{F3b}. The tails of the
 distributions appear to follow a power law. This is consistent with the
 expectation that smaller-scale engagements are less likely to be recorded.
-However, for larger scale engagements, it is very likely that a record is made.
+However, for larger scale engagements it is likely that the event was recorded.
 
 <<clean-up, include=FALSE>>=
 # R compiles all vignettes in the same session, which can be bad

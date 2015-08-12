@@ -1,13 +1,11 @@
 get_data_cdf_probs = function(occur, lower_tail) {
   ## Normalise
   p = occur/sum(occur)
-  
   if(lower_tail)
     cumsum(p)
   else
     rev(cumsum(rev(p)))
 }
-
 
 #' @rdname dist_data_cdf-methods
 #' @aliases dist_data_cdf,discrete_distribution-method
@@ -19,7 +17,6 @@ setMethod("dist_data_cdf",
             occur = as.vector(tab)
             occur = occur[as.numeric(names(tab)) >= m$xmin]
             get_data_cdf_probs(occur, lower_tail)
-      
           }
 )
 
@@ -35,9 +32,6 @@ setMethod("dist_data_all_cdf",
           }
 )
 
-
-
-
 #' @rdname dist_data_cdf-methods
 #' @aliases dist_data_cdf,ctn_distribution-method
 setMethod("dist_data_cdf",
@@ -45,7 +39,7 @@ setMethod("dist_data_cdf",
           definition = function(m, lower_tail=TRUE, xmax=1e5) {
             n = m$internal[["n"]]
             cdf = (0:(n-1))/n
-            cdf = cdf[1:min(n, xmax)]
+            #cdf = cdf[1:min(n, xmax)]
             if(lower_tail)
               cdf
             else

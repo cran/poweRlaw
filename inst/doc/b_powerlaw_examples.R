@@ -32,13 +32,15 @@ if(!file.exists("blackouts.txt"))
 
 ## ----dis_data------------------------------------------------------------
 library("poweRlaw")
-data("moby")
+data("moby", package="poweRlaw")
 
 ## ----cache=TRUE----------------------------------------------------------
 m_pl = displ$new(moby)
 
 ## ----cache=TRUE----------------------------------------------------------
 est = estimate_xmin(m_pl)
+
+## ----cache=TRUE----------------------------------------------------------
 m_pl$setXmin(est)
 
 ## ----eval=FALSE----------------------------------------------------------
@@ -172,6 +174,29 @@ abline(h=1.95, col=2, lty=2)
 #    m_pl$setXmin(xmins[i])
 #    est_scan[i] = estimate_pars(m_pl)$pars
 #  }
+
+## ------------------------------------------------------------------------
+data("swiss_prot", package="poweRlaw")
+head(swiss_prot, 3)
+
+## ------------------------------------------------------------------------
+m_sp = displ$new(swiss_prot$Value)
+est_sp = estimate_xmin(m_sp)
+m_sp$setXmin(est_sp)
+
+## ----sp_plot, echo=FALSE, cache=TRUE, fig.width=4, fig.height=4----------
+plot(m_sp, pch=21, bg=2, panel.first=grid(col="grey80"), 
+     xlab="Word Occurance", ylab="CDF")
+lines(m_sp, col=3, lwd=3)
+
+## ------------------------------------------------------------------------
+par(mar=c(3, 3, 2, 1), mgp=c(2, 0.4, 0), tck=-.01, 
+    cex.axis=0.9, las=1)
+
+## ----sp_plot, fig.keep="none", eval=FALSE--------------------------------
+#  plot(m_sp, pch=21, bg=2, panel.first=grid(col="grey80"),
+#       xlab="Word Occurance", ylab="CDF")
+#  lines(m_sp, col=3, lwd=3)
 
 ## ------------------------------------------------------------------------
 blackouts = read.table("blackouts.txt")
