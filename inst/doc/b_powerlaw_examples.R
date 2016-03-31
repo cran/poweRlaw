@@ -147,9 +147,9 @@ comp = compare_distributions(m_pl, m_ln)
 ## ------------------------------------------------------------------------
 xmins = seq(1, 1001, 5)
 
-## ----est_scan, echo=FALSE, cache=TRUE------------------------------------
+## ----est_scan, echo=FALSE------------------------------------------------
 est_scan = 0*xmins
-for(i in seq_along(xmins)){
+for(i in seq_along(xmins)) {
   m_pl$setXmin(xmins[i])
   est_scan[i] = estimate_pars(m_pl)$pars
 }
@@ -163,14 +163,14 @@ abline(h=1.95, col=2, lty=2)
 
 ## ----est_scan, echo=1, eval=FALSE----------------------------------------
 #  est_scan = 0*xmins
-#  for(i in seq_along(xmins)){
+#  for(i in seq_along(xmins)) {
 #    m_pl$setXmin(xmins[i])
 #    est_scan[i] = estimate_pars(m_pl)$pars
 #  }
 
-## ----est_scan, echo=2:4, eval=FALSE--------------------------------------
+## ----est_scan, echo=-1, eval=FALSE---------------------------------------
 #  est_scan = 0*xmins
-#  for(i in seq_along(xmins)){
+#  for(i in seq_along(xmins)) {
 #    m_pl$setXmin(xmins[i])
 #    est_scan[i] = estimate_pars(m_pl)$pars
 #  }

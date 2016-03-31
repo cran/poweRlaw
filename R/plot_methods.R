@@ -52,6 +52,7 @@ setMethod("plot",
 ######################################
 ######################################
 ######################################
+#' @importFrom stats qchisq qpois qt rlnorm
 get_cum_summary = function(x,trim=0.1) {
   n = length(x)
   m = cumsum(x)/1:n
@@ -75,6 +76,7 @@ get_cum_summary = function(x,trim=0.1) {
   return(dd)
 }
 
+#' @importFrom graphics par grid
 create_plots = function(l, no_plots) {
   ##Set margins for optimal viewing
   old_par = par(no.readonly = TRUE)
@@ -158,14 +160,14 @@ plot.bs_p_xmin = function(x, trim=0.1, ...){
     d = x$bootstraps[, i+1]
     l[[i]] = get_cum_summary(d, trim)
   }
-  l[[no_plots]] = get_cum_summary(x$gof < x$bootstraps$KS, trim)
+  l[[no_plots]] = get_cum_summary(x$gof < x$bootstraps$gof, trim)
   
   names(l) = c("Xmin", paste("Par", 1:(no_plots-3)), "ntail", "p-value")
   #no_plots = ncol(x$bootstraps) - 1
   create_plots(l, no_plots)  
 }
 
-
+#' @importFrom utils modifyList
 #' @rdname plot.bs_xmin
 #' @method plot compare_distributions
 #' @export

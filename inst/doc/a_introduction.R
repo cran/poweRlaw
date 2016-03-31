@@ -55,8 +55,8 @@ library("poweRlaw")
 #  demo(package="poweRlaw")
 #  data(package="poweRlaw")
 
-## ----results='hide'------------------------------------------------------
-citation("poweRlaw")
+## ----results='hide', eval=FALSE------------------------------------------
+#  citation("poweRlaw")
 
 ## ----echo=FALSE----------------------------------------------------------
 data(bootstrap_moby)
@@ -191,10 +191,6 @@ if(file.exists("plfit_res.rds")) {
 
 ## ----results='hide', eval=FALSE------------------------------------------
 #  estimate_xmin(m_m, pars=seq(1.5, 2.5, 0.01))
-
-## ----cache=TRUE----------------------------------------------------------
-x = rpldis(1000, 1, 2)
-plfit(x)
 
 ## ----the_ctn_case--------------------------------------------------------
 r = rplcon(1000, 10, 2.5)

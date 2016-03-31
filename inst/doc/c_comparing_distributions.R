@@ -55,6 +55,17 @@ grid()
 comp = compare_distributions(m1, m2)
 comp$p_two_sided
 
+## ----echo=FALSE---------------------------------
+compare_distributions(m1, m2)$p_two_sided
+compare_distributions(m2, m1)$p_two_sided
+
+## ----echo=FALSE---------------------------------
+## We only care if m1 is better than m2
+## m1 is clearly better
+compare_distributions(m1, m2)$p_one_sided
+## m2 isn't better than m1
+compare_distributions(m2, m1)$p_one_sided
+
 ## -----------------------------------------------
 data("moby")
 
