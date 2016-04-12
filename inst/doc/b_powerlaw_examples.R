@@ -81,7 +81,7 @@ lines(m_ln, col=3, lwd=2)
 lines(m_pois, col=4, lwd=2)
 
 ## ----par_uncertainty, echo=FALSE-----------------------------------------
-data(bootstrap_moby)
+data(bootstrap_moby, package="poweRlaw")
 bs = bootstrap_moby
 
 ## ----eval=FALSE, tidy=FALSE----------------------------------------------
@@ -119,7 +119,7 @@ hist(bs$bootstraps[,3])
 #  bs1 = bootstrap(m_ln)
 
 ## ----echo=FALSE----------------------------------------------------------
-data(bootstrap_p_moby)
+data(bootstrap_p_moby, package="poweRlaw")
 bs_p = bootstrap_p_moby
 
 ## ----echo=FALSE, fig.width=6, fig.height=4, cache=TRUE, out.width='\\textwidth'----
@@ -235,8 +235,8 @@ lines(m_bl_ln, col=3, lwd=3)
 #  lines(m_bl_ln, col=3, lwd=2)
 
 ## ------------------------------------------------------------------------
-data("native_american")
-data("us_american")
+data("native_american", package="poweRlaw")
+data("us_american", package="poweRlaw")
 
 ## ------------------------------------------------------------------------
 head(native_american, 3)

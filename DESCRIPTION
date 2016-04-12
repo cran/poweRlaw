@@ -1,8 +1,8 @@
 Package: poweRlaw
 Type: Package
 Title: Analysis of Heavy Tailed Distributions
-Version: 0.60.0
-Date: 2016-03-31
+Version: 0.60.3
+Date: 2016-04-10
 Authors@R: person(given="Colin", family="Gillespie",
     email="csgillespie@gmail.com", role = c("aut", "cre"))
 Maintainer: Colin Gillespie <csgillespie@gmail.com>
@@ -29,7 +29,7 @@ Collate: 'aaa_all_classes.R' 'AllGenerics.R' 'bootstrap.R'
 ByteCompile: true
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2016-03-31 17:39:18 UTC; ncsg3
+Packaged: 2016-04-11 20:27:29 UTC; ncsg3
 Author: Colin Gillespie [aut, cre]
 Repository: CRAN
-Date/Publication: 2016-03-31 21:12:55
+Date/Publication: 2016-04-12 01:26:34
