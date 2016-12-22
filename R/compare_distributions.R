@@ -10,7 +10,7 @@
 #' The sign of \code{R} indicates which model is better. 
 #' Since the value of \code{R} is esimated, 
 #' we use the method proposed by Vuong, 1989 to select the model.
-
+#' 
 #' This function compares two models. 
 #' The null hypothesis is that both classes of distributions are 
 #' equally far from the true distribution.  If this is true, the
@@ -43,7 +43,6 @@
 #' "Likelihood Ratio Tests for Model Selection and Non-Nested Hypotheses", 
 #' Econometrica 57: 307--333.
 #' @importFrom stats sd pnorm
-#' @export
 #' @examples
 #' ########################################################
 #' # Example data                                         #
@@ -88,7 +87,7 @@ compare_distributions = function(d1, d2) {
   if (p1 < 0.5) {p2 = 2*p1} else {p2 = 2*(1-p1)}
   
   l = list(test_statistic = v, 
-           p_one_sided = p1, p_two_sided=p2, 
+           p_one_sided = 1 - p1, p_two_sided=p2, 
            ratio = data.frame(x=q, ratio=ll_ratio_pts))
   class(l) = "compare_distributions"
   return(l)

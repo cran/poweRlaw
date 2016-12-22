@@ -26,8 +26,8 @@ of xmin to explore. When a single value is passed, this represents
 the maximum value to search, i.e. by default we search from
 (1, 1e5). See details for further information.}
 
-\item{pars}{default \code{NULL}. A vector of parameters used to 
-optimise over. 
+\item{pars}{default \code{NULL}. A vector or matrix (number of columns equal
+to the number of parameters) of parameters used to #' optimise over. 
 Otherwise, for each value of \code{xmin}, the mle will be used, i.e. \code{estimate_pars(m)}.
 For small samples, the mle may be biased.}
 
@@ -48,7 +48,7 @@ Possible values are \code{ks} or \code{reweight}. See details for further inform
 \description{
 When fitting heavy tailed distributions, sometimes it 
 is necessary to estimate the lower threshold, xmin. The
-lower bound is estimated by calculating the minimising the
+lower bound is estimated by minimising the
 Kolmogorov-Smirnoff statistic 
 (as described in Clauset, Shalizi, Newman (2009)).
 \describe{
@@ -59,7 +59,7 @@ when fitting lognormal, Poisson or Exponential distributions. The
 warnings occur for large values of \code{xmin}. Essentially, we are discarding 
 the bulk of the distribution and cannot calculate the tails to enough
 accuracy.}
-\item{\code{bootstrap}}{Estimates the unncertainity in the xmin and parameter values via bootstraping.}
+\item{\code{bootstrap}}{Estimates the unncertainty in the xmin and parameter values via bootstrapping.}
 \item{\code{bootstrap_p}}{Performs a bootstrapping hypothesis test to determine whether a suggested
 (typically power law) distribution is plausible. This is only available for distributions that 
 have \code{dist_rand} methods available.}}

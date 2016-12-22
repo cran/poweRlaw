@@ -29,14 +29,14 @@ palette(c(rgb(170,93,152, maxColorValue=255),
 ## -----------------------------------------------
 library("poweRlaw")
 set.seed(1)
-x = rpldis(10000, xmin=2, alpha=2.1)
+x = rpldis(1000, xmin=2, alpha=3)
 
 ## -----------------------------------------------
 m1 = displ$new(x)
 m1$setPars(estimate_pars(m1))
 
 ## -----------------------------------------------
-m2 = dislnorm$new(x)
+m2 = dispois$new(x)
 m2$setPars(estimate_pars(m2))
 
 ## ----F1,echo=1:3,fig.keep='none'----------------
@@ -55,11 +55,11 @@ grid()
 comp = compare_distributions(m1, m2)
 comp$p_two_sided
 
-## ----echo=FALSE---------------------------------
+## ----echo=TRUE----------------------------------
 compare_distributions(m1, m2)$p_two_sided
 compare_distributions(m2, m1)$p_two_sided
 
-## ----echo=FALSE---------------------------------
+## ----echo=TRUE----------------------------------
 ## We only care if m1 is better than m2
 ## m1 is clearly better
 compare_distributions(m1, m2)$p_one_sided

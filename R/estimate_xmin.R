@@ -65,7 +65,7 @@ get_distance_statistic = function(m, xmax=1e5, distance="ks") {
 #' 
 #' When fitting heavy tailed distributions, sometimes it 
 #' is necessary to estimate the lower threshold, xmin. The
-#' lower bound is estimated by calculating the minimising the
+#' lower bound is estimated by minimising the
 #' Kolmogorov-Smirnoff statistic 
 #' (as described in Clauset, Shalizi, Newman (2009)).
 #' \describe{
@@ -76,15 +76,15 @@ get_distance_statistic = function(m, xmax=1e5, distance="ks") {
 #' warnings occur for large values of \code{xmin}. Essentially, we are discarding 
 #' the bulk of the distribution and cannot calculate the tails to enough
 #' accuracy.}
-#' \item{\code{bootstrap}}{Estimates the unncertainity in the xmin and parameter values via bootstraping.}
+#' \item{\code{bootstrap}}{Estimates the unncertainty in the xmin and parameter values via bootstrapping.}
 #' \item{\code{bootstrap_p}}{Performs a bootstrapping hypothesis test to determine whether a suggested
 #' (typically power law) distribution is plausible. This is only available for distributions that 
 #' have \code{dist_rand} methods available.}}
 #' @param m A reference class object that contains the data.
 #' @param distance A string containing the distance measure (or measures) to calculate. 
 #' Possible values are \code{ks} or \code{reweight}. See details for further information. 
-#' @param pars default \code{NULL}. A vector of parameters used to 
-#' optimise over. 
+#' @param pars default \code{NULL}. A vector or matrix (number of columns equal
+#' to the number of parameters) of parameters used to #' optimise over. 
 #' Otherwise, for each value of \code{xmin}, the mle will be used, i.e. \code{estimate_pars(m)}.
 #' For small samples, the mle may be biased. 
 #' @param xmins default \code{1e5}. A vector of possible values 
@@ -155,7 +155,7 @@ estimate_xmin = function (m, xmins=NULL, pars=NULL,
   
   ## Need to have at least no_pars + 1 data points
   ## to estimate parameters. 
-  ## Find (largest - no_pars) data point and subset xmins
+  ## Find (largest - no_pars)th data point and subset xmins
   if(estimate) {
     unique_dat = unique(m_cpy$dat)
     q_len = length(unique_dat)
@@ -186,11 +186,14 @@ estimate_xmin = function (m, xmins=NULL, pars=NULL,
     if(is.null(pars)) m_cpy$mle(initialise=est)
     else m_cpy$pars = pars
     
-    ## Doesn't work for lognormal - need par matrix    
     if(!is.null(pars)) {
       L = dist_ll(m_cpy)
       I = which.max(L)
-      m_cpy$pars = m_cpy$pars[I]
+      if(is.matrix(pars)) { # For multi-parameter models
+        m_cpy$pars = m_cpy$pars[I,]
+      } else {
+        m_cpy$pars = m_cpy$pars[I]
+      }
     }
     gof = get_distance_statistic(m_cpy, xmax, distance)
     dat[xm <- xm + 1L,] = c(gof, m_cpy$pars, get_ntail(m_cpy))
