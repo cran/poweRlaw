@@ -11,6 +11,7 @@ get_xmin_est = function(dat, xmins){
   }
   
   xmin = xmins[row]
+  if(is.null(xmin)) xmin = NA
   pars = dat[row, 2:(ncol(dat)-1L)]
   ntail = dat[row, ncol(dat)]
   
@@ -143,7 +144,7 @@ estimate_xmin = function (m, xmins=NULL, pars=NULL,
                           xmax=1e5, distance="ks") {
   ## Flag. Go through a bunch of checks to test whether we 
   ## can estimate xmin 
-  estimate = length(unique(m$dat)) > 1
+  estimate = length(unique(m$dat)) > m$no_pars + 1
   
   ## Make thread safe
   if(estimate) {
