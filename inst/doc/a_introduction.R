@@ -31,7 +31,7 @@ palette(c(rgb(170,93,152, maxColorValue=255),
 
 ## ----eval=FALSE----------------------------------------------------------
 #  install.packages("devtools")
-#  devtools::install_github("csgillespie/poweRlaw", subdir="pkg")
+#  devtools::install_github("csgillespie/poweRlaw")
 
 ## ------------------------------------------------------------------------
 library("poweRlaw")

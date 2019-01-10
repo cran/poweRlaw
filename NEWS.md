@@ -1,3 +1,8 @@
+Version 0.70.2
+--------------
+  * Bug fix: Input and output of dpldis should be the same (thanks to @mpadge #73).
+  * Optimisation: Used the compressed data for ll calculations in lognormal (thanks to @maxbiostat #80).
+
 Version 0.70.1
 --------------
   * Bug fix: Very rarely bootstrapping results in singular datasets.
