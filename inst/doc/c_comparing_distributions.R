@@ -3,33 +3,33 @@ library(knitr)
 library(poweRlaw)
 options(replace.assign=FALSE,width=50)
 
-opts_chunk$set(fig.path='knitr_figure_compare/graphics-', 
-               cache.path='knitr_cache_compare/', 
-               fig.align='center', 
-               dev='pdf', fig.width=5, fig.height=5, 
-               fig.show='hold', cache=FALSE, par=TRUE,
-               out.width='0.4\\textwidth')
-knit_hooks$set(crop=hook_pdfcrop)
+opts_chunk$set(fig.path = "knitr_figure_poweRlaw/graphicsc-",
+               cache.path = "knitr_cache_poweRlaw_c/",
+               fig.align = "center",
+               dev = "pdf", fig.width = 5, fig.height = 5,
+               fig.show = "hold", cache = FALSE, par = TRUE,
+               out.width = "0.4\\textwidth")
+knit_hooks$set(crop = hook_pdfcrop)
 
-knit_hooks$set(par=function(before, options, envir){
-  if (before && options$fig.show!='none') {
-    par(mar=c(3,3,2,1),cex.lab=.95,cex.axis=.9,
-        mgp=c(2,.7,0),tcl=-.01, las=1)
-  }}, crop=hook_pdfcrop)
+knit_hooks$set(par = function(before, options, envir) {
+  if (before && options$fig.show != "none") {
+    par(mar = c(3, 4, 2, 1), cex.lab = .95, cex.axis = .9,
+        mgp = c(3, .7, 0), tcl = -.01, las = 1)
+  }}, crop = hook_pdfcrop)
 
 set.seed(1)
-palette(c(rgb(170,93,152, maxColorValue=255),
-          rgb(103,143,57, maxColorValue=255),
-          rgb(196,95,46, maxColorValue=255),
-          rgb(79,134,165, maxColorValue=255),
-          rgb(205,71,103, maxColorValue=255),
-          rgb(203,77,202, maxColorValue=255),
-          rgb(115,113,206, maxColorValue=255)))
+palette(c(rgb(170, 93, 152, maxColorValue = 255),
+          rgb(103, 143, 57, maxColorValue = 255),
+          rgb(196, 95, 46, maxColorValue = 255),
+          rgb(79, 134, 165, maxColorValue = 255),
+          rgb(205, 71, 103, maxColorValue = 255),
+          rgb(203, 77, 202, maxColorValue = 255),
+          rgb(115, 113, 206, maxColorValue = 255)))
 
 ## -----------------------------------------------
 library("poweRlaw")
 set.seed(1)
-x = rpldis(1000, xmin=2, alpha=3)
+x = rpldis(1000, xmin = 2, alpha = 3)
 
 ## -----------------------------------------------
 m1 = displ$new(x)
@@ -40,15 +40,15 @@ m2 = dispois$new(x)
 m2$setPars(estimate_pars(m2))
 
 ## ----F1,echo=1:3,fig.keep='none'----------------
-plot(m2, ylab="CDF")
+plot(m2, ylab = "CDF")
 lines(m1)
-lines(m2, col=2, lty=2)
+lines(m2, col = 2, lty = 2)
 grid()
 
 ## ----F1,echo=FALSE------------------------------
-plot(m2, ylab="CDF")
+plot(m2, ylab = "CDF")
 lines(m1)
-lines(m2, col=2, lty=2)
+lines(m2, col = 2, lty = 2)
 grid()
 
 ## -----------------------------------------------
@@ -79,15 +79,15 @@ m2$setXmin(m1$getXmin())
 m2$setPars(estimate_pars(m2))
 
 ## ----F2,echo=1:3, fig.keep='none'---------------
-plot(m2, ylab="CDF")
+plot(m2, ylab = "CDF")
 lines(m1)
-lines(m2, col=2, lty=2)
+lines(m2, col = 2, lty = 2)
 grid()
 
 ## ----F2,echo=FALSE------------------------------
-plot(m2, ylab="CDF")
+plot(m2, ylab = "CDF")
 lines(m1)
-lines(m2, col=2, lty=2)
+lines(m2, col = 2, lty = 2)
 grid()
 
 ## -----------------------------------------------
