@@ -187,50 +187,29 @@ m_bl$setXmin(est)
 plot(m_bl, panel.first = grid())
 lines(m_bl, col = 2)
 
-## ----echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE----
-if (!file.exists("plfit.R"))
-  download.file("http://tuvalu.santafe.edu/~aaronc/powerlaws/plfit.r", destfile = "plfit.R")
-source("plfit.R")
-if (file.exists("plfit_res.rds")) {
-  plfit_res = readRDS("plfit_res.rds")
-} else {
-  plfit_res = plfit(moby)
-  saveRDS(plfit_res, file = "plfit_res.rds")
-}
-
 ## ----eval=FALSE---------------------------------------------------------------
 #  source("http://tuvalu.santafe.edu/~aaronc/powerlaws/plfit.r")
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  plfit_res = plfit(moby)
 
-## ----results='hide', eval=FALSE-----------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  estimate_xmin(m_m, pars = seq(1.5, 2.5, 0.01))
 
-## ----cache=TRUE---------------------------------------------------------------
-x = rpldis(1000, 1, 2)
-plfit(x)
+## ----eval = FALSE-------------------------------------------------------------
+#  x = rpldis(1000, 1, 2)
+#  plfit(x)
 
-## ----the_ctn_case-------------------------------------------------------------
-r = rplcon(1000, 10, 2.5)
+## ----the_ctn_case, eval = FALSE-----------------------------------------------
+#  r = rplcon(1000, 10, 2.5)
 
-## -----------------------------------------------------------------------------
-plfit(r)
+## ----eval = FALSE-------------------------------------------------------------
+#  plfit(r)
 
-## -----------------------------------------------------------------------------
-m_r = conpl$new(r)
-(est = estimate_xmin(m_r))
-m_r$setXmin(est)
-
-## ----fig.keep='none'----------------------------------------------------------
-plot(m_r)
-lines(m_r, col = 2)
-
-## ----echo=FALSE---------------------------------------------------------------
-plot(m_r, ylab = "CDF",
-     pch = 21, bg = 1, cex = 0.5,
-     panel.first = grid(), xlim = c(10, 1000))
-lines(m_r, col = 2, lwd = 2)
+## ----eval = FALSE-------------------------------------------------------------
+#  m_r = conpl$new(r)
+#  (est = estimate_xmin(m_r))
+#  m_r$setXmin(est)
 
 ## ----clean-up, include=FALSE--------------------------------------------------
 # R compiles all vignettes in the same session, which can be bad

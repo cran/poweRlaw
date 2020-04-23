@@ -7,15 +7,17 @@
 \alias{USAmerican}
 \alias{us_american}
 \title{Casualties in the American Indian Wars (1776 and 1890)}
-\format{Data frame}
+\format{
+Data frame
+}
 \source{
-Friedman, Jeffrey A. "Using Power Laws to Estimate Conflict Size." 
+Friedman, Jeffrey A. "Using Power Laws to Estimate Conflict Size."
 The Journal of conflict resolution (2014).
 }
 \description{
-These data files contain the observed casualties in the American Indian Wars. 
-The data sets \code{native_american} and \code{us_american} contain the 
-casualties on the Native American and US American 
-sides respectively. Each data set is a data frame, with two columns: 
+These data files contain the observed casualties in the American Indian Wars.
+The data sets \code{native_american} and \code{us_american} contain the
+casualties on the Native American and US American
+sides respectively. Each data set is a data frame, with two columns:
 the number of casualties and the conflict date.
 }
