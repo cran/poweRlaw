@@ -156,7 +156,7 @@ m_m = displ$new(moby)
 m_m$setXmin(est)
 
 ## ----echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE----
-#download.file("http://goo.gl/BsqnP", destfile="blackouts.txt")
+# Downloaded from Clausetts webiste - no longer there
 blackouts = c(570, 210.882, 190, 46, 17, 360, 74, 19, 460, 65, 18.351, 25,
 25, 63.5, 1, 9, 50, 114.5, 350, 25, 50, 25, 242.91, 55, 164.5,
 877, 43, 1140, 464, 90, 2100, 385, 95.63, 166, 71, 100, 234,
@@ -186,30 +186,6 @@ est = estimate_xmin(m_bl)
 m_bl$setXmin(est)
 plot(m_bl, panel.first = grid())
 lines(m_bl, col = 2)
-
-## ----eval=FALSE---------------------------------------------------------------
-#  source("http://tuvalu.santafe.edu/~aaronc/powerlaws/plfit.r")
-
-## ----eval=FALSE---------------------------------------------------------------
-#  plfit_res = plfit(moby)
-
-## ----eval=FALSE---------------------------------------------------------------
-#  estimate_xmin(m_m, pars = seq(1.5, 2.5, 0.01))
-
-## ----eval = FALSE-------------------------------------------------------------
-#  x = rpldis(1000, 1, 2)
-#  plfit(x)
-
-## ----the_ctn_case, eval = FALSE-----------------------------------------------
-#  r = rplcon(1000, 10, 2.5)
-
-## ----eval = FALSE-------------------------------------------------------------
-#  plfit(r)
-
-## ----eval = FALSE-------------------------------------------------------------
-#  m_r = conpl$new(r)
-#  (est = estimate_xmin(m_r))
-#  m_r$setXmin(est)
 
 ## ----clean-up, include=FALSE--------------------------------------------------
 # R compiles all vignettes in the same session, which can be bad

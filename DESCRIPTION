@@ -1,7 +1,7 @@
 Type: Package
 Package: poweRlaw
 Title: Analysis of Heavy Tailed Distributions
-Version: 0.70.6
+Version: 0.80.0
 Authors@R: 
     person(given = "Colin",
            family = "Gillespie",
@@ -23,7 +23,6 @@ Suggests: covr, knitr, testthat
 VignetteBuilder: knitr
 ByteCompile: true
 Encoding: UTF-8
-RoxygenNote: 7.1.0
 Collate: 'aaa_all_classes.R' 'all_generics.R' 'bootstrap.R'
         'bootstrap_p.R' 'checks.R' 'compare_distributions.R'
         'conlnorm.R' 'data_help_files.R' 'def_conexp.R' 'def_conpl.R'
@@ -33,8 +32,9 @@ Collate: 'aaa_all_classes.R' 'all_generics.R' 'bootstrap.R'
         'get_n.R' 'get_ntail.R' 'lines_methods.R' 'plcon.R' 'pldis.R'
         'plot_methods.R' 'points_methods.R' 'powerlaw-package.R'
         'show_methods.R' 'timer.R'
+RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2020-04-24 10:44:31 UTC; ncsg3
+Packaged: 2024-01-25 10:39:42 UTC; colin
 Author: Colin Gillespie [aut, cre] (<https://orcid.org/0000-0003-1787-0275>)
 Repository: CRAN
-Date/Publication: 2020-04-25 07:30:12 UTC
+Date/Publication: 2024-01-25 18:00:02 UTC

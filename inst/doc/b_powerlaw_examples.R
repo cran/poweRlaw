@@ -29,7 +29,6 @@ palette(c(rgb(170, 93, 152, maxColorValue = 255),
 
 ## ----echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE----
 #if(!file.exists("blackouts.txt"))
-#  download.file("http://goo.gl/BsqnP", destfile="blackouts.txt")
 blackouts = c(570, 210.882, 190, 46, 17, 360, 74, 19, 460, 65, 18.351, 25,
 25, 63.5, 1, 9, 50, 114.5, 350, 25, 50, 25, 242.91, 55, 164.5,
 877, 43, 1140, 464, 90, 2100, 385, 95.63, 166, 71, 100, 234,
